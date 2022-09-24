@@ -1,2 +1,4 @@
 github.com/elliotchance/orderedmap/v2 v2.2.0 h1:7/2iwO98kYT4XkOjA9mBEIwvi4KpGB4cyHeOFOnj4Vk=
 github.com/elliotchance/orderedmap/v2 v2.2.0/go.mod h1:85lZyVbpGaGvHvnKa7Qhx7zncAdBIBq6u56Hb1PRU5Q=
+github.com/seambiz/strcase v0.2.1 h1:k3HlqSVAfgx+aY+9M49bLGWzmecO2TVQ+OoZmCwiEnw=
+github.com/seambiz/strcase v0.2.1/go.mod h1:IucWHxOi0ZoW5NRbE72uXhAX1bUZnS2LIuL7cpEGCfk=

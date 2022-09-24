@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/elliotchance/orderedmap/v2"
+	"github.com/seambiz/strcase"
 )
 
 var newLine = byte('\n')
@@ -182,4 +183,19 @@ func (g *Generator) NewLine() {
 // String returns buffer as string.
 func (g *Generator) String() string {
 	return g.buf.String()
+}
+
+// ToSnake is just a wrapper around strcase to make the call shorter.
+func (g *Generator) ToSnake(s string) string {
+	return strcase.ToSnake(s)
+}
+
+// ToCamel is just a wrapper around strcase to make the call shorter.
+func (g *Generator) ToCamel(s string) string {
+	return strcase.ToCamel(s)
+}
+
+// ToLowerCamel is just a wrapper around strcase to make the call shorter.
+func (g *Generator) ToLowerCamel(s string) string {
+	return strcase.ToLowerCamel(s)
 }

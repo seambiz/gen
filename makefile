@@ -17,6 +17,11 @@ CP := cp -u -v
 # Required for globs to work correctly
 SHELL=/usr/bin/env bash
 
+.PHONY: doitall
+doitall: bump release
+	git push
+
+
 .PHONY: release
 release:
 	$(eval VERSION_FILE := version.txt)
