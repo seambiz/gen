@@ -38,6 +38,7 @@ func (f *Func) Body(fn func()) {
 			f.g.Lit(",")
 		}
 		f.g.Lit(el.Key, " ", el.Value)
+		i++
 	}
 	f.g.Lit(") ")
 
@@ -52,6 +53,7 @@ func (f *Func) Body(fn func()) {
 				f.g.Lit(",")
 			}
 			f.g.Lit(el.Key, " ", el.Value)
+			i++
 		}
 		if lenReturns > 1 {
 			f.g.Lit(")")
