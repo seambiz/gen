@@ -19,6 +19,15 @@ func Ptr(ss ...string) string {
 	return g.String()
 }
 
+func Slice(ss ...string) string {
+	g := NewGenerator()
+
+	g.Lit("[]")
+	g.Lit(ss...)
+
+	return g.String()
+}
+
 func PtrIf(b bool, ss ...string) string {
 	g := NewGenerator()
 	if b {
