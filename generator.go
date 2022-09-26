@@ -167,6 +167,19 @@ func (g *Generator) Func(ss ...string) *Func {
 	return f
 }
 
+// Func returns a Func with params joined for the name.
+func (g *Generator) IFunc(ss ...string) *InterfaceFn {
+	f := &InterfaceFn{}
+
+	f.name = strings.Join(ss, "")
+	f.g = g
+
+	f.params = orderedmap.NewOrderedMap[string, string]()
+	f.returns = orderedmap.NewOrderedMap[string, string]()
+
+	return f
+}
+
 // Field returns a Field.
 func (g *Generator) Field(name string) *Field {
 	f := &Field{}
