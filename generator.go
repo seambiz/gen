@@ -118,6 +118,17 @@ func (g *Generator) Struct(name string, fn func()) {
 	g.NewLine()
 }
 
+// Struct definition with callback for indentation and flexibility.
+func (g *Generator) Interface(name string, fn func()) {
+	g.Lit("type ", name, " interface {")
+	g.NewLine()
+
+	fn()
+
+	g.Lit("}")
+	g.NewLine()
+}
+
 // If adds the params as a condition in an if stmt.
 func (g *Generator) If(ss ...string) *IfStmt {
 	g.Lit("if (")
