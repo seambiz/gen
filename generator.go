@@ -50,6 +50,11 @@ func (g *Generator) S(ss ...string) string {
 	return strings.Join(ss, "")
 }
 
+// Ref prepends reference operator.
+func (g *Generator) Ref(ss ...string) string {
+	return "&" + strings.Join(ss, "")
+}
+
 // Append is a shorthand for generating "append" code.
 func (g *Generator) Append(name string, value string) {
 	g.Lit(name, " = append(", name, ", ", value, ")")
@@ -165,6 +170,15 @@ func (g *Generator) Func(ss ...string) *Func {
 	f.returns = orderedmap.NewOrderedMap[string, string]()
 
 	return f
+}
+
+// Call returns a function call with params.
+func (g *Generator) Call(ss ...string) *Call {
+	c := &Call{}
+
+	c.name = g.Id(ss...)
+
+	return c
 }
 
 // Func returns a Func with params joined for the name.

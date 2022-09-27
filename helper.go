@@ -50,7 +50,7 @@ func NewStruct(name string, kv *KV) string {
 		g.Lit(key, ":", value, ",")
 		g.NewLine()
 	}
-	g.Lit(name, "}")
+	g.Lit("}")
 	g.NewLine()
 
 	return g.String()
