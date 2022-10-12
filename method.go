@@ -54,6 +54,7 @@ func (m *Method) Body(fn func()) {
 			m.g.Lit(",")
 		}
 		m.g.Lit(el.Key, " ", el.Value)
+		i++
 	}
 	m.g.Lit(") ")
 

@@ -8,4 +8,5 @@ func (i *IfStmt) Body(fn func()) {
 	fn()
 
 	i.g.Lit("}")
+	i.g.NewLine()
 }

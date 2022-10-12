@@ -46,6 +46,13 @@ func (g *Generator) Id(ss ...string) string {
 }
 
 // S joins all passed params. Convience function to make the template shorter.
+func (g *Generator) Declare(s ...string) *Generator {
+	g.Lit(strings.Join(s, ","), " := ")
+
+	return g
+}
+
+// S joins all passed params. Convience function to make the template shorter.
 func (g *Generator) S(ss ...string) string {
 	return strings.Join(ss, "")
 }
@@ -65,6 +72,26 @@ func (g *Generator) Append(name string, value string) {
 func (g *Generator) Return(s string) {
 	g.Lit("return ", s)
 	g.NewLine()
+}
+
+// Nil returns nil as string.
+func (g *Generator) Nil() string {
+	return "nil"
+}
+
+// Err returns err as string.
+func (g *Generator) Err() string {
+	return "err"
+}
+
+// Err returns err as string.
+func (g *Generator) Eq(s1 string, s2 string) string {
+	return s1 + " == " + s2
+}
+
+// Err returns err as string.
+func (g *Generator) Neq(s1 string, s2 string) string {
+	return s1 + " != " + s2
 }
 
 // Panic adds a panic stmt to the buffer.
@@ -173,10 +200,12 @@ func (g *Generator) Func(ss ...string) *Func {
 }
 
 // Call returns a function call with params.
-func (g *Generator) Call(ss ...string) *Call {
+func (g *Generator) Call(identifier ...string) *Call {
 	c := &Call{}
 
-	c.name = g.Id(ss...)
+	c.name = g.Id(identifier...)
+	c.g = g
+	c.Calls = append(c.Calls, c)
 
 	return c
 }
@@ -236,4 +265,10 @@ func (g *Generator) ToCamel(s string) string {
 // ToLowerCamel is just a wrapper around strcase to make the call shorter.
 func (g *Generator) ToLowerCamel(s string) string {
 	return strcase.ToLowerCamel(s)
+}
+
+// ToSnake is just a wrapper around strcase to make the call shorter.
+func (g *Generator) ToLowerPlain(s string) string {
+	s = strcase.ToSnake(s)
+	return strings.ReplaceAll(s, "_", "")
 }
