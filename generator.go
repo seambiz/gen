@@ -9,6 +9,11 @@ import (
 
 var newLine = byte('\n')
 
+type Pair struct {
+	First  string
+	Second string
+}
+
 type KV map[string]string
 
 type Generator struct {
@@ -29,6 +34,15 @@ func (g *Generator) Line(ss ...string) {
 func (g *Generator) Go(ss ...string) {
 	g.Lit(ss...)
 	g.NewLine()
+}
+
+// On writes to the buffer only if condition is true.
+func (g *Generator) On(b bool, ss ...string) string {
+	if b {
+		return g.S(ss...)
+	}
+
+	return ""
 }
 
 // Id adds an identifier to the buffer.
@@ -126,12 +140,15 @@ func (g *Generator) ConstFn(fn func()) {
 }
 
 // Import adds a single grouped import to the buffer.
-func (g *Generator) Import(ss ...string) {
+func (g *Generator) Import(imps []Pair) {
 	g.Lit("import (")
 	g.NewLine()
 
-	for i := range ss {
-		g.Lit(`"`, ss[i], `"`)
+	for _, p := range imps {
+		if p.First != "" {
+			g.Lit(p.First, " ")
+		}
+		g.Lit(`"`, p.Second, `"`)
 		g.NewLine()
 	}
 	g.Lit(")")

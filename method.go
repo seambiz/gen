@@ -69,6 +69,7 @@ func (m *Method) Body(fn func()) {
 				m.g.Lit(",")
 			}
 			m.g.Lit(el.Key, " ", el.Value)
+			i++
 		}
 		if lenReturns > 1 {
 			m.g.Lit(")")
