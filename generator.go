@@ -298,3 +298,11 @@ func (g *Generator) ToLowerPlain(s string) string {
 	s = strcase.ToSnake(s)
 	return strings.ReplaceAll(s, "_", "")
 }
+
+// TrimSuffix dirty way to manipulate the buffer
+func (g *Generator) TrimSuffix(s string) {
+	buf := g.String()
+	buf = strings.TrimSuffix(buf, s)
+	g.buf.Reset()
+	g.buf.WriteString(buf)
+}
