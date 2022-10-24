@@ -37,6 +37,15 @@ func (g *Generator) Go(ss ...string) {
 }
 
 // On writes to the buffer only if condition is true.
+func (g *Generator) Ternary(b bool, thenStr string, elseStr string) string {
+	if b {
+		return thenStr
+	}
+
+	return elseStr
+}
+
+// On writes to the buffer only if condition is true.
 func (g *Generator) On(b bool, ss ...string) string {
 	if b {
 		return g.S(ss...)
@@ -53,7 +62,7 @@ func (g *Generator) Id(ss ...string) string {
 	} else if len(ss) == 2 {
 		s = ss[0] + "." + ss[1]
 	} else {
-		panic("RetSlice must receive 1 or 2 parameters")
+		panic("Id must receive 1 or 2 parameters")
 	}
 
 	return s
