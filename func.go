@@ -28,44 +28,51 @@ func (f *Func) Returns(ss ...string) *Func {
 	return f
 }
 
-func (f *Func) Body(fn func()) {
-	f.g.Lit("func ")
+func (f *Func) String(fn func()) string {
+	g := NewGenerator()
 
-	f.g.Lit(f.name, "(")
+	g.Lit("func ")
+
+	g.Lit(f.name, "(")
 	i := 0
 	for el := f.params.Front(); el != nil; el = el.Next() {
 		if i > 0 {
-			f.g.Lit(",")
+			g.Lit(",")
 		}
-		f.g.Lit(el.Key, " ", el.Value)
+		g.Lit(el.Key, " ", el.Value)
 		i++
 	}
-	f.g.Lit(") ")
+	g.Lit(") ")
 
 	lenReturns := f.returns.Len()
 	if lenReturns > 0 {
 		if lenReturns > 1 {
-			f.g.Lit("(")
+			g.Lit("(")
 		}
 		i = 0
 		for el := f.returns.Front(); el != nil; el = el.Next() {
 			if i > 0 {
-				f.g.Lit(",")
+				g.Lit(",")
 			}
-			f.g.Lit(el.Key, " ", el.Value)
+			g.Lit(el.Key, " ", el.Value)
 			i++
 		}
 		if lenReturns > 1 {
-			f.g.Lit(")")
+			g.Lit(")")
 		}
 	}
 
-	f.g.Lit("{")
-	f.g.NewLine()
+	g.Lit("{")
+	g.NewLine()
 
 	fn()
 
-	f.g.Lit("}")
+	g.Lit("}")
+	return g.String()
+}
+
+func (f *Func) Body(fn func()) {
+	f.g.Lit(f.String(fn))
 	f.g.NewLine()
 	f.g.NewLine()
 }
